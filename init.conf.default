@@ -1,0 +1,45 @@
+#!/bin/sh
+#
+# /etc/init.conf
+# --------------
+# System init configuration for Heretic Linux.
+#
+
+# Include convenience functions
+. /usr/rc.d/initfunctions
+
+# sysinit: always called on system boot
+sysinit(){
+    # Mount root read-write
+    /bin/mount -o remount,rw /
+
+    # Mount all filesystems
+    /bin/mount -a
+
+    # Set hostname
+    /bin/hostname MyHereticBox
+
+    # Start daemons we want to run
+    startd network
+}
+
+# syshalt: always called on system shutdown
+syshalt(){
+    # Stop all running daemons
+    stop_daemons
+
+    # Terminate all processes
+    terminate_all
+}
+
+# sysinit{0-6}: called when their specific init level is reached
+sysinit0(){ }
+sysinit1(){ }
+sysinit2(){ }
+sysinit3(){ }
+sysinit4(){ }
+sysinit5(){ }
+sysinit6(){ }
+
+# Start the called function
+eval $@

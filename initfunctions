@@ -1,0 +1,39 @@
+#!/bin/sh
+#
+# init.conf functions
+# ---------------------
+# Functions that can be used in init.conf
+#
+
+
+## Daemon management
+# Start a daemon
+startd(){
+    /usr/rc.d/$1 start
+}
+
+# Start a daemon in the background
+startbkgd(){
+    (/usr/rc.d/$1 start) &> /dev/null &
+}
+
+# Stop a daemon
+stopd(){
+    /usr/rc.d/$1 stop
+}
+
+# Stop all daemons
+stop_daemons(){
+    for daemon in /var/run/daemons; do
+        stopd $daemon
+    done;
+}
+
+## Convenience functions
+# Kill all processes
+terminate_all(){
+    /sbin/killall5 -15 &> /dev/null
+    /bin/sleep 5
+    /sbin/killall5 -9 &> /dev/null
+    /bin/sleep 1
+}
