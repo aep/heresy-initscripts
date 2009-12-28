@@ -5,13 +5,13 @@
 #
 
 #  Runlevels:
-#    0    Halt
-#    1(S) Single-user
-#    2    Not used
-#    3    Multi-user
-#    4    Not used
-#    5    X11
-#    6    Reboot
+#   0    Halt
+#   1(S) Single-user
+#   2    Not used
+#   3    Multi-user
+#   4    Not used
+#   5    X11
+#   6    Reboot
 
 # Boot to console
 id:3:initdefault:
