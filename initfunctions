@@ -5,6 +5,8 @@
 # Functions that can be used in init.conf
 #
 
+## Messages to console
+# 
 
 ## Daemon management
 # Start a daemon
@@ -39,14 +41,16 @@ stop_daemons(){
 # Kill all processes
 terminate_all(){
     # Get sleep times
-    [ "$1" = "" ] && post_sigterm="1" || post_sigterm="$1"
-    [ "$2" = "" ] && post_sigkill="1" || post_sigkill="$2"
+    [ -n "$1" ] && post_sigterm="1" || post_sigterm="$1"
+    [ -n "$2" ] && post_sigkill="1" || post_sigkill="$2"
 
     # Send sigterm
+    echo " :: Sending SIGTERM to all running processes"
     /sbin/killall5 -15 &> /dev/null
     /bin/sleep $post_sigterm
 
     # Send sigkill
+    echo " :: Sending SIGKILL to all running processes"
     /sbin/killall5 -9 &> /dev/null
     /bin/sleep $post_sigkill
 }

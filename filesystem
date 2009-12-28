@@ -2,30 +2,40 @@
 #
 # Mount and unmount all filesystems as a daemon
 #
+
 case "$1" in
     start)
+        echo " :: Mounting all filesystems"
+
         # Mount /proc and /sys
+        echo " ... Mounting /proc and /sys"
         /bin/mount -n -t proc none /proc
         /bin/mount -n -t sysfs none /sys
 
         # Mount root
+        echo " ... Mounting root read-write"
         /bin/mount -n -o remount,rw /
 
         # Mount all other filesystems
+        echo " ... Mounting all filesystems"
         /bin/mount -a
 
         # Activate all swap
+        echo " ... Activating swap"
         /sbin/swapon -a
     ;;
     stop)
+        echo " :: Unmounting all filesystems"
 
         # Write wtmp to disk
         /sbin/halt -w
 
         # Deactivate all swap
+        echo " ... Deactivating swap"
         /sbin/swapoff -a
 
         # Unmount filesystems
+        echo " ... Unmounting all filesystems"
         /bin/umount -a -r -t notmpfs,nosysfs,noproc -O no_netdev
     ;;
     *)
