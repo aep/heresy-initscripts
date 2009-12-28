@@ -19,12 +19,8 @@ id:3:initdefault:
 # Call the respective functions in init.conf
 sys::sysinit:/etc/init.conf sysinit
 hlt:06:wait:/etc/init.conf syshalt 
-i1:1:wait:/etc/init.conf sysinit1
-i2:2:wait:/etc/init.conf sysinit2
-i3:3:wait:/etc/init.conf sysinit3
-i4:4:wait:/etc/init.conf sysinit4
+i3:35:wait:/etc/init.conf sysinit3
 i5:5:wait:/etc/init.conf sysinit5
-i6:6:wait:/etc/init.conf sysinit6
 
 # Single user mode
 su:S:wait:/sbin/sulogin -p

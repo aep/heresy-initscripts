@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# Mount and unmount all filesystems as a daemon
+#
+case "$1" in
+    start)
+        # Mount /proc and /sys
+        /bin/mount -n -t proc none /proc
+        /bin/mount -n -t sysfs none /sys
+
+        # Mount root
+        /bin/mount -n -o remount,rw /
+
+        # Mount all other filesystems
+        /bin/mount -a
+
+        # Activate all swap
+        /sbin/swapon -a
+    ;;
+    stop)
+
+        # Write wtmp to disk
+        /sbin/halt -w
+
+        # Deactivate all swap
+        /sbin/swapoff -a
+
+        # Unmount filesystems
+        /bin/umount -a -r -t notmpfs,nosysfs,noproc -O no_netdev
+    ;;
+    *)
+        echo "usage: $0 {start|stop}"
+esac

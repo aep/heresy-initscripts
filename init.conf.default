@@ -10,17 +10,32 @@
 
 # sysinit: always called on system boot
 sysinit(){
-    # Mount root read-write
-    /bin/mount -o remount,rw /
-
-    # Mount all filesystems
-    /bin/mount -a
-
     # Set hostname
-    /bin/hostname MyHereticBox
+    /bin/hostname "MyHereticBox"
 
-    # Start daemons we want to run
-    startd network
+    ## Connect to local network
+    #/sbin/ifconfig eth0 up
+    #/sbin/ifconfig eth0 192.168.0.2 netmask 255.255.255.0 broadcast 102.168.0.255
+    #/sbin/route default gw 192.168.1.1
+
+    # Mount filesystems
+    startd filesystem
+
+    # Load necessary kernel modules
+    # /sbin/modprobe
+}
+
+# sysinit3: called when runlevel 3 is reached
+sysinit3(){
+    ## Start daemons we want to run
+    #startd syslog-ng
+    #startbkgd sshd mpd
+}
+
+# sysinit5: called when runlevel 5 is reached
+sysinit5(){
+    # Runlevel 5 is usually used for starting the graphics system
+    # startd xinit
 }
 
 # syshalt: always called on system shutdown
@@ -30,16 +45,13 @@ syshalt(){
 
     # Terminate all processes
     terminate_all
-}
 
-# sysinit{0-6}: called when their specific init level is reached
-sysinit0(){ }
-sysinit1(){ }
-sysinit2(){ }
-sysinit3(){ }
-sysinit4(){ }
-sysinit5(){ }
-sysinit6(){ }
+    # Unmount filesystems
+    stopd filesystem
+
+    # Halt system
+    system_halt
+}
 
 # Start the called function
 eval $@
