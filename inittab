@@ -4,7 +4,7 @@
 # Main configuration for sysvinit.
 #
 
-#  Runlevels:
+# Runlevels:
 #   0    Halt
 #   1(S) Single-user
 #   2    Not used
