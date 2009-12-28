@@ -19,6 +19,9 @@ sysinit(){
     ## Set hostname
     hostname "MyHereticBox"
 
+    ## Start udev
+    #startd udev
+
     ## Mount filesystems
     startd filesystem
 

@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# Start udev as a daemon
+#
+
+case "$1" in
+    start)
+        echo " :: Starting udev"
+
+        # Mount necessary filesystems
+        /bin/mount -n -t tmpfs udev /dev -o mode=0755,size=10M,nosuid
+        /bin/mount -n -t proc none /proc
+        /bin/mount -n -t sysfs none /sys
+
+        # Copy static device nodes to /dev
+        /bin/cp -a /lib/udev/devices/* /dev/
+
+        # Start the udev daemon
+        /sbin/udevd --daemon
+
+        # Trigger udev events
+        /sbin/udevadm control --property=STARTUP=1
+        /sbin/udevadm trigger
+
+        # Wait for udev to settle
+        /sbin/udevadm settle
+        /sbin/udevadm control --property=STARTUP=
+    ;;
+    *)
+        echo "usage: $0 start"
+esac
