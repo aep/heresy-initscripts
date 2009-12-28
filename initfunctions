@@ -38,10 +38,17 @@ stop_daemons(){
 ## Convenience functions
 # Kill all processes
 terminate_all(){
+    # Get sleep times
+    [ "$1" = "" ] && post_sigterm="1" || post_sigterm="$1"
+    [ "$2" = "" ] && post_sigkill="1" || post_sigkill="$2"
+
+    # Send sigterm
     /sbin/killall5 -15 &> /dev/null
-    /bin/sleep 1
+    /bin/sleep $post_sigterm
+
+    # Send sigkill
     /sbin/killall5 -9 &> /dev/null
-    /bin/sleep 1
+    /bin/sleep $post_sigkill
 }
 
 # Halt entire system

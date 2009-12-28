@@ -8,21 +8,27 @@
 # Include convenience functions
 . /usr/rc.d/initfunctions
 
+# Set $path for binaries used during init
+export PATH="/bin:/sbin"
+
 # sysinit: always called on system boot
 sysinit(){
-    # Set hostname
-    /bin/hostname "MyHereticBox"
+    ## Load necessary kernel modules
+    #modprobe -a fuse loop
 
-    ## Connect to local network
-    #/sbin/ifconfig eth0 up
-    #/sbin/ifconfig eth0 192.168.0.2 netmask 255.255.255.0 broadcast 102.168.0.255
-    #/sbin/route default gw 192.168.1.1
+    ## Set hostname
+    hostname "MyHereticBox"
 
-    # Mount filesystems
+    ## Mount filesystems
     startd filesystem
 
-    # Load necessary kernel modules
-    # /sbin/modprobe
+    ## Bring up the loopback interface
+    ifconfig lo 127.0.0.1 up
+
+    ## Connect to local network
+    #ifconfig eth0 up
+    #ifconfig eth0 192.168.0.2 netmask 255.255.255.0 broadcast 102.168.0.255
+    #route default gw 192.168.1.1
 }
 
 # sysinit3: called when runlevel 3 is reached
@@ -34,22 +40,22 @@ sysinit3(){
 
 # sysinit5: called when runlevel 5 is reached
 sysinit5(){
-    # Runlevel 5 is usually used for starting the graphics system
+    ## Runlevel 5 is usually used for starting the graphics system
     # startd xinit
 }
 
 # syshalt: always called on system shutdown
 syshalt(){
-    # Stop all running daemons
+    ## Stop all running daemons
     stop_daemons
 
-    # Terminate all processes
+    ## Terminate all processes
     terminate_all
 
-    # Unmount filesystems
+    ## Unmount filesystems
     stopd filesystem
 
-    # Halt system
+    ## Halt system
     system_halt
 }
 
