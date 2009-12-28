@@ -12,6 +12,34 @@ case "$1" in
         /bin/mount -n -t proc none /proc
         /bin/mount -n -t sysfs none /sys
 
+        # Mount root read-only
+        echo " ... Mounting root read-only"
+        /bin/mount -n -o remount,ro /
+
+        # Check filesystems
+        echo " ... Checking filesystems"
+        /sbin/fsck -A -T -C -a
+        ckret=$?
+
+        # Fsck wants a reboot
+        if [ $((${ckret}&2)) -eq 2 ]; then
+            echo " ** System will reboot as required by fsck in 10 seconds"
+            /bin/sleep 10
+            /bin/umount -a
+            /sbin/reboot -f
+            exit 0
+        fi
+
+        # Check failed in general
+        if [ ${ckret} -gt 1 -a ${ckret} -ne 32 ]; then
+            echo " ** Filesystem check failed, please repair manually"
+            /sbin/sulogin -p
+            /bin/sleep 10
+            /bin/umount -a
+            /sbin/reboot -f
+            exit 0
+        fi
+
         # Mount root
         echo " ... Mounting root read-write"
         /bin/mount -n -o remount,rw /

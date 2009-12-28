@@ -29,4 +29,4 @@ su:S:wait:/sbin/sulogin -p
 ca::ctrlaltdel:/sbin/shutdown -t3 -r now
 
 # Start the first virtual console
-c1:2345:respawn:/sbin/mingetty tty1
+c1:2345:respawn:/sbin/agetty -8 38400 tty1 linux
