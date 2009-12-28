@@ -33,7 +33,7 @@ stop_daemons(){
 # Kill all processes
 terminate_all(){
     /sbin/killall5 -15 &> /dev/null
-    /bin/sleep 5
+    /bin/sleep 1
     /sbin/killall5 -9 &> /dev/null
     /bin/sleep 1
 }
