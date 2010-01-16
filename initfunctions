@@ -32,7 +32,7 @@ stopd(){
 
 # Stop all daemons
 stop_daemons(){
-    for daemon in /var/run/daemons/*; do
+    for daemon in $(/bin/ls -1t /var/run/daemons); do
         stopd $daemon
     done;
 }
