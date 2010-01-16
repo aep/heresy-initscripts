@@ -2,13 +2,13 @@
 #
 # /etc/init.conf
 # --------------
-# System init configuration for Heretic Linux.
+# System init configuration.
 #
 
 # Include convenience functions
 . /usr/rc.d/initfunctions
 
-# Set $path for binaries used during init
+# Set $PATH for binaries used during init
 export PATH="/bin:/sbin"
 
 # sysinit: always called on system boot
@@ -30,7 +30,7 @@ sysinit(){
 
     ## Connect to local network
     #ifconfig eth0 up
-    #ifconfig eth0 192.168.0.2 netmask 255.255.255.0 broadcast 102.168.0.255
+    #ifconfig eth0 192.168.0.2 netmask 255.255.255.0 broadcast 192.168.0.255
     #route default gw 192.168.1.1
 }
 
