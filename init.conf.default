@@ -13,7 +13,7 @@ export PATH="/bin:/sbin"
 
 # sysinit: always called on system boot
 sysinit(){
-    ## Only display errors on the console
+    ## Only display critical errors on the console
     dmesg -n 3
 
     ## Load necessary kernel modules

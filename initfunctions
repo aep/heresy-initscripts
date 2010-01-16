@@ -41,8 +41,8 @@ stop_daemons(){
 # Kill all processes
 terminate_all(){
     # Get sleep times
-    [ -n "$1" ] && post_sigterm="1" || post_sigterm="$1"
-    [ -n "$2" ] && post_sigkill="1" || post_sigkill="$2"
+    [ -z "$1" ] && post_sigterm="1" || post_sigterm="$1"
+    [ -z "$2" ] && post_sigkill="1" || post_sigkill="$2"
 
     # Send sigterm
     echo " :: Sending SIGTERM to all running processes"
