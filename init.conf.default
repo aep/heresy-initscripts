@@ -13,6 +13,9 @@ export PATH="/bin:/sbin"
 
 # sysinit: always called on system boot
 sysinit(){
+    ## Only display errors on the console
+    dmesg -n 3
+
     ## Load necessary kernel modules
     #modprobe -a fuse loop
 
@@ -39,12 +42,18 @@ sysinit3(){
     ## Start daemons we want to run
     #startd syslog-ng
     #startbkgd sshd mpd
+
+    ## Don't do anything successfully
+    true
 }
 
 # sysinit5: called when runlevel 5 is reached
 sysinit5(){
     ## Runlevel 5 is usually used for starting the graphics system
     # startd xinit
+
+    ## Don't do anything successfully
+    true
 }
 
 # syshalt: always called on system shutdown

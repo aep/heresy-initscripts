@@ -1,11 +1,9 @@
 #!/bin/sh
-# Make sure directories exist
-mkdir -p ${DESTDIR}/usr/rc.d
-mkdir -p ${DESTDIR}/etc
-
 # Configuration
-cp init.conf.default ${DESTDIR}/etc/init.conf
+install -Dm755 init.conf.default ${DESTDIR}/etc/init.conf
 cp inittab ${DESTDIR}/etc
 
 # Initscripts
-cp filesystem udev functions initfunctions ${DESTDIR}/usr/rc.d
+install -Dm755 filesystem ${DESTDIR}/usr/rc.d
+install -Dm755 udev ${DESTDIR}/usr/rc.d
+cp functions initfunctions ${DESTDIR}/usr/rc.d
