@@ -12,21 +12,21 @@
 # Start a daemon
 startd(){
     for daemon in $@; do
-        /usr/rc.d/$1 start
+        /usr/share/rc.d/$1 start
     done;
 }
 
 # Start a daemon in the background
 startbkgd(){
     for daemon in $@; do
-        (/usr/rc.d/$daemon start) &> /dev/null &
+        (/usr/share/rc.d/$daemon start) &> /dev/null &
     done;
 }
 
 # Stop a daemon
 stopd(){
     for daemon in $@; do
-        /usr/rc.d/$daemon stop
+        /usr/share/rc.d/$daemon stop
     done;
 }
 

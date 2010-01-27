@@ -186,22 +186,22 @@ ck_daemon() {
 ck_depends() {
 	for daemon in $@; do
 		if ck_daemon $daemon; then
-			/usr/rc.d/$daemon start
+			/usr/share/rc.d/$daemon start
 		fi
 	done
 }
 
 start_daemon() {
-	/usr/rc.d/$1 start
+	/usr/share/rc.d/$1 start
 }
 
 start_daemon_bkgd() {
 	stat_bkgd "Starting $1"
-	(/usr/rc.d/$1 start) &>/dev/null &
+	(/usr/share/rc.d/$1 start) &>/dev/null &
 }
 
 stop_daemon() {
-	/usr/rc.d/$1 stop
+	/usr/share/rc.d/$1 stop
 }
 
 # Status functions
@@ -225,7 +225,7 @@ ck_status() {
 }
 
 # Source additional functions at the end to allow overrides
-for f in /usr/rc.d/functions.d/*; do
+for f in /usr/share/rc.d/functions.d/*; do
   if [ -e $f ]; then
     . $f
   fi
