@@ -6,7 +6,7 @@
 #
 
 # Include convenience functions
-. /usr/rc.d/initfunctions
+. /usr/share/rc.d/initfunctions
 
 # Set $PATH for binaries used during init
 export PATH="/bin:/sbin"
