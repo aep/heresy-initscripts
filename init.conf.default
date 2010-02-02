@@ -34,7 +34,7 @@ sysinit(){
     ## Connect to local network
     #ifconfig eth0 up
     #ifconfig eth0 192.168.0.2 netmask 255.255.255.0 broadcast 192.168.0.255
-    #route default gw 192.168.1.1
+    #route add default gw 192.168.1.1
 }
 
 # sysinit3: called when runlevel 3 is reached
